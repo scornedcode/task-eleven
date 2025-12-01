@@ -16,6 +16,10 @@ with DAG(
     template_searchpath=[SCRIPTS_PATH],
     tags=['pagila', 'setup']
 ) as dag:
+    """
+        This pipeline resets the Pagila database environment by dropping the existing schema,
+        recreating it, and populating it with fresh data from SQL scripts.
+    """
 
     drop_schema = SQLExecuteQueryOperator(
         task_id='drop_schema',

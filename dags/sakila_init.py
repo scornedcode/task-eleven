@@ -16,6 +16,10 @@ with DAG(
     template_searchpath=[SCRIPTS_PATH],
     tags=['sakila', 'setup']
 ) as dag:
+    """
+        This pipeline resets the Sagila database environment by dropping the existing schema,
+        recreating it, and populating it with fresh data from SQL scripts.
+    """
 
     create_schema = SQLExecuteQueryOperator(
         task_id='create_schema',
