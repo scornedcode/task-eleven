@@ -49,8 +49,8 @@ x-airflow-common:
   # In order to add custom dependencies or upgrade provider packages you can use your extended image.
   # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
-  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.9.2}
-  # build: .
+  # image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.9.2}
+  build: .
   env_file:
     - ${ENV_FILE_PATH:-.env}
   environment:
@@ -330,6 +330,16 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-snowflake:1.7.2
+    container_name: dbt_runner
+    entrypoint: /bin/bash
+    command: -c "sleep infinity"
+    volumes:
+      - ${AIRFLOW_PROJ_DIR:-.}/dbt:/usr/app/dbt
+      - ${AIRFLOW_PROJ_DIR:-.}/profiles.yml:/root/.dbt/profiles.yml
+    network_mode: service:airflow-webserver
 
 volumes:
   postgres-db-volume:
