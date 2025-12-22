@@ -1,0 +1,14 @@
+pagila_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "PMRKPOC-DT00135"
+      user: "DEV_USER"
+      password: "DevPassword123!"
+      role: "DEV_ROLE"
+      warehouse: "AIRBYTE_WH"
+      database: "ANALYTICS"
+      schema: "dbt_dev"
+      threads: 4
+      client_session_keep_alive: False
